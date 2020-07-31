@@ -1,0 +1,14 @@
+enclave {
+    include "sgx_report.h"
+
+    trusted {
+        public int ecall_create_report ([in] sgx_target_info_t* quote_enc_info, [out] sgx_report_t* report);
+        public int ecall_get_mr_enclave([out] unsigned char mr_enclave[32]);
+    };
+
+    untrusted {
+        void ocall_logging(int level, [in,string] const char* file, int line, [in,string] const char* msg);
+        // printf
+        int ocall_print_string([in, string] const char *str);
+    };
+};
